@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">CloudClipboard</string>
+    <string name="login_emailEdt_hint">Email ID</string>
+    <string name="login_passEdt_hint">Password</string>
+    <string name="login_btn_text">Login</string>
+    <string name="loren_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</string>
+    <string name="add_btn_text">Add</string>
+</resources>

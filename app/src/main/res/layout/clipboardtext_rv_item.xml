@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="@dimen/clipboard_rv_item_card_radius"
+    android:layout_margin="@dimen/clipboard_rv_item_card_margin">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/clipboard_rv_item_card_margin"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/time_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/clipboard_rv_item_text_space"
+            android:text="Date: 04-04-2020 Time: 23:34"
+            android:textSize="@dimen/sub_text" />
+
+        <TextView
+            android:id="@+id/clipboardText_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/loren_ipsum"
+            android:textColor="@color/textBlack"
+            android:textSize="@dimen/main_text" />
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
