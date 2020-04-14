@@ -6,7 +6,6 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.shambu.cloudclipboard.utils.Converter
-import kotlinx.coroutines.Dispatchers
 
 @Database(entities = [ClipboardData::class], version = 1, exportSchema = false)
 @TypeConverters(Converter::class)

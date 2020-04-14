@@ -15,6 +15,9 @@ interface ClipboardDataDao {
     @Delete
     suspend fun delete(data: ClipboardData)
 
+    @Query("SELECT * FROM clipboard_data WHERE dataId == :id")
+    suspend fun getDataById(id: Int): ClipboardData
+
     @Query("SELECT * FROM clipboard_data")
     fun observeAllData(): LiveData<List<ClipboardData>>
 

@@ -1,4 +1,4 @@
-package com.shambu.cloudclipboard.utils
+package com.shambu.cloudclipboard
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
@@ -8,13 +8,7 @@ import com.shambu.cloudclipboard.model.ClipboardRepository
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
 
-    private var clipboardRepository: ClipboardRepository
+    private var clipboardRepository: ClipboardRepository = ClipboardRepository(application)
 
-    init {
-        clipboardRepository =  ClipboardRepository(application)
-    }
-
-    fun getAllClipData(): LiveData<List<ClipboardData>> {
-        return clipboardRepository.getAllClipData()
-    }
+    fun getAllClipData(): LiveData<List<ClipboardData>> = clipboardRepository.getAllClipData()
 }

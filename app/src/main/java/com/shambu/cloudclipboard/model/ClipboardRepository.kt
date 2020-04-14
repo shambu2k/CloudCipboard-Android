@@ -6,17 +6,19 @@ import androidx.lifecycle.LiveData
 class ClipboardRepository(application: Application) {
 
     private var clipboardDao: ClipboardDataDao
-    private var application: Application
 
     init {
-        this.application = application
-        var clipboardDatabase: ClipboardDatabase = ClipboardDatabase.getInstance(application)
+        val clipboardDatabase: ClipboardDatabase = ClipboardDatabase.getInstance(application)
         clipboardDao = clipboardDatabase.clipboardDataDao()
     }
 
 
     fun getAllClipData(): LiveData<List<ClipboardData>> {
         return clipboardDao.observeAllData()
+    }
+
+    suspend fun getClipDataByID(id: Int): ClipboardData {
+        return clipboardDao.getDataById(id)
     }
 
     suspend fun insertClipData(clipboardData: ClipboardData) {
@@ -30,5 +32,4 @@ class ClipboardRepository(application: Application) {
     suspend fun deleteClipData(clipboardData: ClipboardData) {
         clipboardDao.delete(clipboardData)
     }
-
 }
