@@ -6,29 +6,17 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
 import com.shambu.cloudclipboard.model.ClipboardData
 import com.shambu.cloudclipboard.model.ClipboardRepository
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class AddClipViewModel(application: Application) : AndroidViewModel(application) {
 
     private var clipboardRepository: ClipboardRepository = ClipboardRepository(application)
-    private var insertJob: Job = Job()
-    private var getByIdJob: Job = Job()
-    private var updateJob: Job = Job()
-    private var deleteJob: Job = Job()
-    private val insertScope: CoroutineScope
-    private val updateScope: CoroutineScope
-    private val getDataScope: CoroutineScope
-    private val deleteScope: CoroutineScope
-
-    init {
-        insertScope = CoroutineScope(Dispatchers.IO + insertJob)
-        getDataScope = CoroutineScope(Dispatchers.IO + getByIdJob)
-        updateScope = CoroutineScope(Dispatchers.IO + updateJob)
-        deleteScope = CoroutineScope(Dispatchers.IO + deleteJob)
-    }
+    private val viewModelScope: CoroutineScope = CoroutineScope(Dispatchers.IO)
 
     fun insertClipData(clipboardData: ClipboardData) {
-        insertScope.launch {
+        viewModelScope.launch {
             clipboardRepository.insertClipData(clipboardData)
         }
     }
@@ -41,22 +29,14 @@ class AddClipViewModel(application: Application) : AndroidViewModel(application)
     }
 
     fun updateClipData(clipboardData: ClipboardData) {
-        updateScope.launch {
+        viewModelScope.launch {
             clipboardRepository.updateClipData(clipboardData)
         }
     }
 
     fun deleteClipData(clipboardData: ClipboardData) {
-        deleteScope.launch {
+        viewModelScope.launch {
             clipboardRepository.deleteClipData(clipboardData)
         }
     }
-
-    override fun onCleared() {
-        insertJob.cancel()
-        getByIdJob.cancel()
-        updateJob.cancel()
-        super.onCleared()
-    }
-
 }

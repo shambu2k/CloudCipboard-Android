@@ -34,6 +34,7 @@ class AddClipActivity : AppCompatActivity() {
 
 
         if(intent.getIntExtra("ID", -10) != -10){
+            addBtn.text = getString(R.string.edit_btn_text)
             delBtn.visibility = View.VISIBLE
             val observer = Observer<ClipboardData> { data -> clipEdt.setText(data.clipboardText)}
             viewModel.getClipDataById(intent.getIntExtra("ID", -10)).observe(this, observer)
