@@ -17,9 +17,8 @@ class ClipboardRepository(application: Application) {
         return clipboardDao.observeAllData()
     }
 
-    suspend fun getClipDataByID(id: Int): ClipboardData {
-        return clipboardDao.getDataById(id)
-    }
+    suspend fun getClipDataByID(id: Int): ClipboardData =
+        clipboardDao.getDataById(id)
 
     suspend fun insertClipData(clipboardData: ClipboardData) {
         clipboardDao.insert(clipboardData)

@@ -5,7 +5,11 @@
     <string name="login_passEdt_hint">Password</string>
     <string name="login_btn_text">Login</string>
     <string name="loren_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</string>
+    <string name="service_toggle_btn_text_start">Start</string>
+    <string name="service_toggle_btn_text_stop">Stop</string>
     <string name="add_btn_text">Add</string>
     <string name="del_btn_text">Delete</string>
     <string name="edit_btn_text">Edit</string>
+    <string name="notif_foreground_service_title">Clipboard Listener</string>
+    <string name="notif_foreground_service_content">Cloud Clipboard is saving all your clipboard texts</string>
 </resources>

@@ -18,7 +18,7 @@ interface ClipboardDataDao {
     @Query("SELECT * FROM clipboard_data WHERE dataId == :id")
     suspend fun getDataById(id: Int): ClipboardData
 
-    @Query("SELECT * FROM clipboard_data")
+    @Query("SELECT * FROM clipboard_data ORDER BY dataId DESC")
     fun observeAllData(): LiveData<List<ClipboardData>>
 
 }

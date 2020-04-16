@@ -8,6 +8,7 @@ import com.shambu.cloudclipboard.model.ClipboardData
 import com.shambu.cloudclipboard.model.ClipboardRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 
 class AddClipViewModel(application: Application) : AndroidViewModel(application) {
@@ -21,12 +22,12 @@ class AddClipViewModel(application: Application) : AndroidViewModel(application)
         }
     }
 
-    fun getClipDataById(id: Int): LiveData<ClipboardData> {
-        return liveData {
+    fun getClipDataById(id: Int): LiveData<ClipboardData> =
+         liveData {
             val data = clipboardRepository.getClipDataByID(id)
             emit(data)
         }
-    }
+
 
     fun updateClipData(clipboardData: ClipboardData) {
         viewModelScope.launch {
@@ -38,5 +39,10 @@ class AddClipViewModel(application: Application) : AndroidViewModel(application)
         viewModelScope.launch {
             clipboardRepository.deleteClipData(clipboardData)
         }
+    }
+
+    override fun onCleared() {
+        viewModelScope.cancel()
+        super.onCleared()
     }
 }

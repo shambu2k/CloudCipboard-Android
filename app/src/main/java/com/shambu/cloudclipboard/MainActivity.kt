@@ -3,6 +3,7 @@ package com.shambu.cloudclipboard
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Button
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -15,6 +16,7 @@ class MainActivity : AppCompatActivity(), LongClickListener {
 
     private lateinit var fab: FloatingActionButton
     private lateinit var rv: RecyclerView
+    private lateinit var serviceToggleBtn: Button
     private lateinit var adapter: ClipboardListAdapter
     private lateinit var viewModel: MainViewModel
 
@@ -23,6 +25,7 @@ class MainActivity : AppCompatActivity(), LongClickListener {
         setContentView(R.layout.activity_main)
         fab = findViewById(R.id.add_clip_fab)
         rv = findViewById(R.id.clipboardText_rv)
+        serviceToggleBtn = findViewById(R.id.service_toggle_btn)
 
         rv.layoutManager = LinearLayoutManager(this)
         adapter = ClipboardListAdapter(this)
@@ -33,14 +36,26 @@ class MainActivity : AppCompatActivity(), LongClickListener {
 
         viewModel.getAllClipData().observe(this, observer)
 
+        fab.setOnClickListener { startActivity(Intent(this, AddClipActivity::class.java)) }
 
-
-        fab.setOnClickListener {startActivity(Intent(this, AddClipActivity::class.java))}
+        serviceToggleBtn.setOnClickListener { toggleForegroundService() }
     }
 
     override fun onLongClick(id: Int) {
        val intent = Intent(this, AddClipActivity::class.java)
        intent.putExtra("ID", id)
        startActivity(intent)
+    }
+
+    private fun toggleForegroundService() {
+        if(serviceToggleBtn.text == "Start") {
+            serviceToggleBtn.text = getString(R.string.service_toggle_btn_text_stop)
+            startService(Intent(this, ClipboardService::class.java))
+            // TODO: Start foreground service
+        } else {
+            serviceToggleBtn.text = getString(R.string.service_toggle_btn_text_start)
+            stopService(Intent(this, ClipboardService::class.java))
+            // TODO: Stop foreground service
+        }
     }
 }
