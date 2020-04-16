@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.shambu.cloudclipboard.model.ClipboardData
+import com.shambu.cloudclipboard.utils.SharedPrefWrapper
 
 class MainActivity : AppCompatActivity(), LongClickListener {
 
@@ -19,6 +20,7 @@ class MainActivity : AppCompatActivity(), LongClickListener {
     private lateinit var serviceToggleBtn: Button
     private lateinit var adapter: ClipboardListAdapter
     private lateinit var viewModel: MainViewModel
+    private lateinit var prefWrapper: SharedPrefWrapper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,6 +28,14 @@ class MainActivity : AppCompatActivity(), LongClickListener {
         fab = findViewById(R.id.add_clip_fab)
         rv = findViewById(R.id.clipboardText_rv)
         serviceToggleBtn = findViewById(R.id.service_toggle_btn)
+
+        prefWrapper = SharedPrefWrapper(application)
+
+        if(prefWrapper.isRunning()) {
+            serviceToggleBtn.text = getString(R.string.service_toggle_btn_text_stop)
+        } else {
+            serviceToggleBtn.text = getString(R.string.service_toggle_btn_text_start)
+        }
 
         rv.layoutManager = LinearLayoutManager(this)
         adapter = ClipboardListAdapter(this)
@@ -51,11 +61,11 @@ class MainActivity : AppCompatActivity(), LongClickListener {
         if(serviceToggleBtn.text == "Start") {
             serviceToggleBtn.text = getString(R.string.service_toggle_btn_text_stop)
             startService(Intent(this, ClipboardService::class.java))
-            // TODO: Start foreground service
+            prefWrapper.toggleServiceState(true)
         } else {
             serviceToggleBtn.text = getString(R.string.service_toggle_btn_text_start)
             stopService(Intent(this, ClipboardService::class.java))
-            // TODO: Stop foreground service
+            prefWrapper.toggleServiceState(false)
         }
     }
 }
